@@ -13,18 +13,17 @@
   --green:#16a34a;--green-l:#f0fdf4;
   --red:#dc2626;--red-l:#fef2f2;
   --yellow:#d97706;--yellow-l:#fffbeb;
+  --purple:#7c3aed;--purple-l:#f5f3ff;
   --r:8px;--r-lg:14px;--sh:0 1px 3px rgba(0,0,0,.08);--sh2:0 4px 16px rgba(0,0,0,.1)
 }
 html{font-size:15px}
 body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
-
-/* LOGIN */
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem;background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 100%)}
 .login-card{background:var(--sf);border-radius:20px;padding:2.5rem;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
 .login-logo{display:flex;align-items:center;gap:.6rem;margin-bottom:2rem}
 .login-logo-icon{width:40px;height:40px;background:var(--blue);border-radius:10px;display:flex;align-items:center;justify-content:center}
 .login-logo-icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
-.login-logo-text{font-size:1.3rem;font-weight:800;color:var(--tx)}
+.login-logo-text{font-size:1.3rem;font-weight:800}
 .login-logo-text span{color:var(--blue)}
 .login-title{font-size:1.1rem;font-weight:700;margin-bottom:.3rem}
 .login-sub{font-size:.85rem;color:var(--mu);margin-bottom:1.5rem}
@@ -35,17 +34,13 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--tx);min-hei
 .login-err{background:var(--red-l);color:var(--red);border:1px solid #fecaca;border-radius:var(--r);padding:.6rem .9rem;font-size:.82rem;margin-bottom:1rem;display:none}
 .login-btn{width:100%;padding:.75rem;background:var(--blue);color:#fff;border:none;border-radius:var(--r);font-size:.95rem;font-weight:600;cursor:pointer;font-family:"Inter",sans-serif;transition:background .2s}
 .login-btn:hover{background:var(--blue-d)}
-
-/* APP */
 .app{display:none;min-height:100vh}
-
-/* SIDEBAR */
 .layout{display:flex;min-height:100vh}
 .sidebar{width:240px;background:var(--sf);border-right:1px solid var(--bd);position:fixed;top:0;left:0;height:100vh;display:flex;flex-direction:column;z-index:50}
 .sb-logo{padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:.6rem}
 .sb-logo-icon{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center}
 .sb-logo-icon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
-.sb-logo-text{font-size:.95rem;font-weight:800;color:var(--tx)}
+.sb-logo-text{font-size:.95rem;font-weight:800}
 .sb-logo-text span{color:var(--blue)}
 .sb-nav{padding:.75rem 0;flex:1}
 .sb-item{display:flex;align-items:center;gap:.6rem;padding:.6rem 1.5rem;font-size:.85rem;font-weight:500;color:var(--t2);cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:"Inter",sans-serif;transition:all .15s}
@@ -57,16 +52,10 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--tx);min-hei
 .sb-stats strong{color:var(--tx);font-weight:600}
 .sb-logout{width:100%;padding:.5rem;background:transparent;color:var(--mu);border:1px solid var(--bd);border-radius:var(--r);font-size:.78rem;cursor:pointer;font-family:"Inter",sans-serif;transition:all .15s}
 .sb-logout:hover{background:var(--red-l);color:var(--red);border-color:#fecaca}
-
-/* MAIN */
 .main{margin-left:240px;flex:1;padding:2rem;max-width:1200px}
-
-/* PAGE HEADER */
 .page-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem;flex-wrap:wrap;gap:1rem}
 .page-title{font-size:1.4rem;font-weight:800;letter-spacing:-.02em}
 .page-sub{font-size:.82rem;color:var(--mu);margin-top:.2rem}
-
-/* STATS CARDS */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.75rem}
 .stat-card{background:var(--sf);border-radius:var(--r-lg);border:1px solid var(--bd);padding:1.1rem 1.25rem;box-shadow:var(--sh)}
 .stat-val{font-size:1.8rem;font-weight:800;letter-spacing:-.03em;display:block}
@@ -74,17 +63,14 @@ body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--tx);min-hei
 .stat-card.blue .stat-val{color:var(--blue)}
 .stat-card.green .stat-val{color:var(--green)}
 .stat-card.yellow .stat-val{color:var(--yellow)}
-
-/* PAGES */
+.stat-card.purple .stat-val{color:var(--purple)}
 .page{display:none}.page.active{display:block}
-
-/* TABLE */
-.table-card{background:var(--sf);border-radius:var(--r-lg);border:1px solid var(--bd);box-shadow:var(--sh);overflow:hidden}
+.card{background:var(--sf);border-radius:var(--r-lg);border:1px solid var(--bd);box-shadow:var(--sh);overflow:hidden}
+.card-body{padding:1.5rem}
 .table-toolbar{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;border-bottom:1px solid var(--bd);flex-wrap:wrap}
 .search-inp{flex:1;min-width:200px;padding:.55rem .85rem;border:1.5px solid var(--bd);border-radius:var(--r);font-size:.85rem;font-family:"Inter",sans-serif}
 .search-inp:focus{outline:none;border-color:var(--blue)}
 .filter-sel{padding:.55rem .85rem;border:1.5px solid var(--bd);border-radius:var(--r);font-size:.83rem;font-family:"Inter",sans-serif;background:var(--sf)}
-.filter-sel:focus{outline:none;border-color:var(--blue)}
 table{width:100%;border-collapse:collapse;font-size:.82rem}
 th{text-align:left;padding:.65rem 1rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);border-bottom:1px solid var(--bd);background:var(--bg)}
 td{padding:.7rem 1rem;border-bottom:1px solid var(--bd);color:var(--t2);vertical-align:middle}
@@ -94,19 +80,15 @@ tr:hover td{background:#fafafa}
 .badge-green{background:var(--green-l);color:var(--green);border:1px solid #a9dfbf}
 .badge-red{background:var(--red-l);color:var(--red);border:1px solid #fecaca}
 .badge-blue{background:var(--blue-l);color:var(--blue);border:1px solid #bfdbfe}
-.badge-yellow{background:var(--yellow-l);color:var(--yellow);border:1px solid #fde68a}
-
-/* BUTTONS */
+.badge-purple{background:var(--purple-l);color:var(--purple);border:1px solid #ddd6fe}
 .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1rem;border-radius:var(--r);font-size:.82rem;font-weight:600;cursor:pointer;border:none;font-family:"Inter",sans-serif;transition:all .15s;white-space:nowrap}
 .btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue-d)}
 .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#15803d}
+.btn-purple{background:var(--purple);color:#fff}.btn-purple:hover{background:#6d28d9}
 .btn-red{background:var(--sf);color:var(--red);border:1.5px solid #fecaca}.btn-red:hover{background:var(--red-l)}
 .btn-ghost{background:var(--sf);color:var(--t2);border:1.5px solid var(--bd)}.btn-ghost:hover{background:var(--bg)}
 .btn-sm{padding:.35rem .7rem;font-size:.75rem}
 .btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
-
-/* FORM */
-.form-card{background:var(--sf);border-radius:var(--r-lg);border:1px solid var(--bd);box-shadow:var(--sh);padding:1.5rem}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
 .full{grid-column:1/-1}
@@ -119,15 +101,9 @@ tr:hover td{background:#fafafa}
 .ftxt{resize:vertical;min-height:80px}
 .fsep{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--mu);margin:1.25rem 0 .85rem;padding-top:1.25rem;border-top:1px solid var(--bd)}
 .fhint{font-size:.74rem;color:var(--mu)}
-.ferr{font-size:.76rem;color:var(--red);font-weight:500;display:none}
-.ferr.show{display:block}
-
-/* ALERT */
 .alert{padding:.75rem 1rem;border-radius:var(--r);font-size:.82rem;margin-bottom:1rem}
 .alert-ok{background:var(--green-l);color:var(--green);border:1px solid #a9dfbf}
 .alert-err{background:var(--red-l);color:var(--red);border:1px solid #fecaca}
-
-/* MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
 .modal-bg.open{display:flex}
 .modal{background:var(--sf);border-radius:var(--r-lg);width:100%;max-width:480px;box-shadow:var(--sh2)}
@@ -136,23 +112,50 @@ tr:hover td{background:#fafafa}
 .modal-x{background:none;border:none;cursor:pointer;color:var(--mu);font-size:1.2rem;line-height:1}
 .modal-bd{padding:1.4rem}
 .modal-ft{padding:.9rem 1.4rem;border-top:1px solid var(--bd);display:flex;gap:.65rem;justify-content:flex-end}
-
-/* EMPTY */
 .empty{text-align:center;padding:3rem;color:var(--mu)}
 .empty p{font-size:.88rem;margin-top:.5rem}
-
-/* LOADING */
 .spin{width:18px;height:18px;border:2px solid var(--bd);border-top-color:var(--blue);border-radius:50%;animation:sp .7s linear infinite;display:inline-block;vertical-align:middle}
 @keyframes sp{to{transform:rotate(360deg)}}
-
-/* INGREDIENTS */
 .ing-row{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:.5rem;margin-bottom:.5rem;align-items:center}
 .ing-rm{background:none;border:none;cursor:pointer;color:var(--mu);font-size:1.1rem;padding:.2rem;transition:color .15s}
 .ing-rm:hover{color:var(--red)}
-
-/* TOAST */
 .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--tx);color:#fff;padding:.75rem 1.25rem;border-radius:var(--r);font-size:.83rem;font-weight:500;z-index:300;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.show{opacity:1}
+
+/* API PAGE */
+.api-hero{background:linear-gradient(135deg,var(--purple),#4f46e5);border-radius:var(--r-lg);padding:2rem;color:#fff;margin-bottom:1.5rem}
+.api-hero-title{font-size:1.2rem;font-weight:800;margin-bottom:.4rem}
+.api-hero-sub{font-size:.88rem;opacity:.85;margin-bottom:1.25rem}
+.api-key-box{background:rgba(255,255,255,.15);border-radius:var(--r);padding:1rem 1.25rem;display:flex;align-items:center;gap:.75rem;backdrop-filter:blur(4px)}
+.api-key-val{font-family:monospace;font-size:.9rem;flex:1;letter-spacing:.02em;word-break:break-all}
+.api-key-copy{background:rgba(255,255,255,.2);border:none;color:#fff;padding:.45rem .9rem;border-radius:var(--r);font-size:.8rem;font-weight:600;cursor:pointer;font-family:"Inter",sans-serif;transition:background .2s;white-space:nowrap}
+.api-key-copy:hover{background:rgba(255,255,255,.3)}
+.api-section{margin-bottom:1.5rem}
+.api-section-title{font-size:.85rem;font-weight:700;color:var(--t2);margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem}
+.api-section-title::after{content:"";flex:1;height:1px;background:var(--bd)}
+.endpoint-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r-lg);overflow:hidden;margin-bottom:.85rem}
+.endpoint-head{display:flex;align-items:center;gap:.75rem;padding:.85rem 1.1rem;border-bottom:1px solid var(--bd);background:var(--bg)}
+.method-badge{font-size:.72rem;font-weight:700;padding:.22rem .6rem;border-radius:5px;color:#fff;flex-shrink:0}
+.method-get{background:#16a34a}
+.endpoint-path{font-family:monospace;font-size:.85rem;color:var(--tx);flex:1}
+.endpoint-desc{font-size:.8rem;color:var(--mu)}
+.endpoint-body{padding:1rem 1.1rem}
+.code-block{background:#1e293b;color:#e2e8f0;border-radius:var(--r);padding:1rem;font-family:monospace;font-size:.78rem;line-height:1.6;overflow-x:auto;position:relative}
+.code-copy{position:absolute;top:.5rem;right:.5rem;background:rgba(255,255,255,.1);border:none;color:#94a3b8;padding:.3rem .6rem;border-radius:5px;font-size:.72rem;cursor:pointer;font-family:"Inter",sans-serif;transition:all .2s}
+.code-copy:hover{background:rgba(255,255,255,.2);color:#fff}
+.param-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:.75rem}
+.param-table th{text-align:left;padding:.4rem .6rem;font-size:.7rem;font-weight:700;color:var(--mu);border-bottom:1px solid var(--bd)}
+.param-table td{padding:.45rem .6rem;border-bottom:1px solid var(--bd);color:var(--t2)}
+.param-table tr:last-child td{border-bottom:none}
+.param-name{font-family:monospace;color:var(--blue);font-size:.8rem}
+.param-opt{font-size:.7rem;color:var(--mu);background:var(--bg);padding:.1rem .4rem;border-radius:4px}
+.param-req{font-size:.7rem;color:var(--red);background:var(--red-l);padding:.1rem .4rem;border-radius:4px}
+.connect-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r-lg);padding:1.5rem;margin-bottom:1rem}
+.connect-card-title{font-size:.95rem;font-weight:700;margin-bottom:.4rem;display:flex;align-items:center;gap:.5rem}
+.connect-card-sub{font-size:.82rem;color:var(--mu);margin-bottom:1rem}
+.step-list{display:flex;flex-direction:column;gap:.6rem}
+.step-item{display:flex;align-items:flex-start;gap:.75rem;font-size:.85rem;color:var(--t2)}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
 
 @media(max-width:768px){
   .sidebar{display:none}.main{margin-left:0}
@@ -173,11 +176,11 @@ tr:hover td{background:#fafafa}
       <span class="login-logo-text">Food<span>Cloud</span></span>
     </div>
     <div class="login-title">Accès privé</div>
-    <div class="login-sub">Espace de gestion des recettes NutriChef</div>
+    <div class="login-sub">Espace de gestion des recettes</div>
     <div class="login-err" id="login-err">Mot de passe incorrect.</div>
     <div class="login-field">
       <label class="login-label">Mot de passe</label>
-      <input type="password" class="login-input" id="login-pwd" placeholder="Entrez votre mot de passe" onkeydown="if(event.key==='Enter')doLogin()"/>
+      <input type="password" class="login-input" id="login-pwd" placeholder="Entrez votre mot de passe"/>
     </div>
     <button class="login-btn" onclick="doLogin()">Se connecter</button>
   </div>
@@ -186,8 +189,6 @@ tr:hover td{background:#fafafa}
 <!-- APP -->
 <div id="app" class="app">
   <div class="layout">
-
-    <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="sb-logo">
         <div class="sb-logo-icon">
@@ -201,12 +202,16 @@ tr:hover td{background:#fafafa}
           Tableau de bord
         </button>
         <button class="sb-item" id="nav-recipes" onclick="goTo('recipes')">
-          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           Mes recettes
         </button>
         <button class="sb-item" id="nav-add" onclick="goTo('add')">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
           Ajouter une recette
+        </button>
+        <button class="sb-item" id="nav-api" onclick="goTo('api')">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Connecter une app
         </button>
       </nav>
       <div class="sb-footer">
@@ -215,13 +220,12 @@ tr:hover td{background:#fafafa}
       </div>
     </aside>
 
-    <!-- MAIN -->
     <main class="main">
 
       <!-- DASHBOARD -->
       <div class="page active" id="page-dashboard">
         <div class="page-hd">
-          <div><div class="page-title">Tableau de bord</div><div class="page-sub">Vue d'ensemble de votre base FoodCloud</div></div>
+          <div><div class="page-title">Tableau de bord</div><div class="page-sub">Vue d'ensemble FoodCloud</div></div>
           <button class="btn btn-blue" onclick="goTo('add')">
             <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Ajouter une recette
@@ -229,13 +233,13 @@ tr:hover td{background:#fafafa}
         </div>
         <div class="stats-row">
           <div class="stat-card blue"><span class="stat-val" id="st-total">—</span><span class="stat-lbl">Recettes totales</span></div>
-          <div class="stat-card green"><span class="stat-val" id="st-active">—</span><span class="stat-lbl">Actives sur NutriChef</span></div>
-          <div class="stat-card yellow"><span class="stat-val" id="st-pending">—</span><span class="stat-lbl">En attente</span></div>
-          <div class="stat-card"><span class="stat-val" id="st-inactive">—</span><span class="stat-lbl">Inactives</span></div>
+          <div class="stat-card green"><span class="stat-val" id="st-active">—</span><span class="stat-lbl">Actives</span></div>
+          <div class="stat-card yellow"><span class="stat-val" id="st-inactive">—</span><span class="stat-lbl">Inactives</span></div>
+          <div class="stat-card purple"><span class="stat-val">1</span><span class="stat-lbl">App connectée</span></div>
         </div>
-        <div class="table-card">
-          <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--bd);font-size:.82rem;font-weight:700;color:var(--t2)">Dernières recettes ajoutées</div>
-          <div id="dash-recent"><div class="empty"><div class="spin"></div><p>Chargement...</p></div></div>
+        <div class="card">
+          <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--bd);font-size:.82rem;font-weight:700;color:var(--t2)">Dernières recettes</div>
+          <div id="dash-recent"><div class="empty"><div class="spin"></div></div></div>
         </div>
       </div>
 
@@ -248,9 +252,9 @@ tr:hover td{background:#fafafa}
             Ajouter
           </button>
         </div>
-        <div class="table-card">
+        <div class="card">
           <div class="table-toolbar">
-            <input class="search-inp" type="text" id="search-q" placeholder="Rechercher une recette..." oninput="loadRecipes()"/>
+            <input class="search-inp" type="text" id="search-q" placeholder="Rechercher..." oninput="loadRecipes()"/>
             <select class="filter-sel" id="filter-meal" onchange="loadRecipes()">
               <option value="">Tous les repas</option>
               <option value="breakfast">Petit-déjeuner</option>
@@ -273,86 +277,258 @@ tr:hover td{background:#fafafa}
         </div>
       </div>
 
-      <!-- AJOUTER / MODIFIER -->
+      <!-- AJOUTER -->
       <div class="page" id="page-add">
         <div class="page-hd">
-          <div><div class="page-title" id="form-title">Ajouter une recette</div><div class="page-sub">La recette sera disponible sur NutriChef dès l'enregistrement</div></div>
+          <div><div class="page-title" id="form-title">Ajouter une recette</div><div class="page-sub">Disponible immédiatement via l'API</div></div>
         </div>
-        <div class="form-card">
+        <div class="card card-body">
           <div id="form-alert"></div>
           <div class="form-grid">
-            <div class="fg full"><label class="flbl">Nom de la recette <span class="req">*</span></label><input type="text" class="finp" id="f-name" placeholder="Ex : Poulet rôti aux herbes"/></div>
-            <div class="fg full"><label class="flbl">Description</label><textarea class="ftxt" id="f-desc" rows="2" placeholder="Décrivez la recette en quelques mots..."></textarea></div>
+            <div class="fg full"><label class="flbl">Nom <span class="req">*</span></label><input type="text" class="finp" id="f-name" placeholder="Ex : Poulet rôti aux herbes"/></div>
+            <div class="fg full"><label class="flbl">Description</label><textarea class="ftxt" id="f-desc" rows="2" placeholder="Description courte..."></textarea></div>
             <div class="fg"><label class="flbl">Type de repas <span class="req">*</span></label>
-              <select class="fsel" id="f-meal">
-                <option value="breakfast">Petit-déjeuner</option>
-                <option value="lunch" selected>Déjeuner</option>
-                <option value="dinner">Dîner</option>
-                <option value="snack">Collation</option>
-              </select>
+              <select class="fsel" id="f-meal"><option value="breakfast">Petit-déjeuner</option><option value="lunch" selected>Déjeuner</option><option value="dinner">Dîner</option><option value="snack">Collation</option></select>
             </div>
             <div class="fg"><label class="flbl">Statut</label>
-              <select class="fsel" id="f-status">
-                <option value="active">Active — visible sur NutriChef</option>
-                <option value="inactive">Inactive — masquée</option>
-              </select>
+              <select class="fsel" id="f-status"><option value="active">Active — visible via API</option><option value="inactive">Inactive — masquée</option></select>
             </div>
-            <div class="fg"><label class="flbl">Cuisine / Pays</label><input type="text" class="finp" id="f-cuisine" placeholder="Ex : Française, Italienne..."/></div>
-            <div class="fg"><label class="flbl">URL de l'image</label><input type="text" class="finp" id="f-image" placeholder="https://..."/></div>
+            <div class="fg"><label class="flbl">Cuisine</label><input type="text" class="finp" id="f-cuisine" placeholder="Ex : Française, Italienne..."/></div>
+            <div class="fg"><label class="flbl">URL image</label><input type="text" class="finp" id="f-image" placeholder="https://..."/></div>
           </div>
-
           <div class="fsep">Données nutritionnelles (par portion)</div>
           <div class="form-grid-3">
-            <div class="fg"><label class="flbl">Calories (kcal) <span class="req">*</span></label><input type="number" class="finp" id="f-cal" placeholder="450" min="0" max="10000"/></div>
+            <div class="fg"><label class="flbl">Calories (kcal) <span class="req">*</span></label><input type="number" class="finp" id="f-cal" placeholder="450" min="0"/></div>
             <div class="fg"><label class="flbl">Protéines (g)</label><input type="number" class="finp" id="f-prot" placeholder="30" min="0" step="0.1"/></div>
             <div class="fg"><label class="flbl">Glucides (g)</label><input type="number" class="finp" id="f-carb" placeholder="40" min="0" step="0.1"/></div>
             <div class="fg"><label class="flbl">Lipides (g)</label><input type="number" class="finp" id="f-fat" placeholder="15" min="0" step="0.1"/></div>
             <div class="fg"><label class="flbl">Fibres (g)</label><input type="number" class="finp" id="f-fiber" placeholder="5" min="0" step="0.1"/></div>
-            <div class="fg"><label class="flbl">Portions</label><input type="number" class="finp" id="f-serv" value="1" min="1" max="100"/></div>
+            <div class="fg"><label class="flbl">Portions</label><input type="number" class="finp" id="f-serv" value="1" min="1"/></div>
           </div>
-
           <div class="fsep">Temps</div>
           <div class="form-grid">
             <div class="fg"><label class="flbl">Préparation (min)</label><input type="number" class="finp" id="f-prep" placeholder="15" min="0"/></div>
             <div class="fg"><label class="flbl">Cuisson (min)</label><input type="number" class="finp" id="f-cook" placeholder="20" min="0"/></div>
           </div>
-
           <div class="fsep">Ingrédients</div>
           <div id="ing-list"></div>
           <button class="btn btn-ghost btn-sm" onclick="addIng()" style="margin-top:.5rem">+ Ajouter un ingrédient</button>
-
           <div class="fsep">Préférences alimentaires</div>
           <div class="form-grid">
-            <div class="fg"><label class="flbl">Régimes compatibles</label><input type="text" class="finp" id="f-diets" placeholder="vegetarian, vegan, gluten-free (virgule)"/><span class="fhint">Séparés par des virgules</span></div>
-            <div class="fg"><label class="flbl">Allergènes présents</label><input type="text" class="finp" id="f-allergens" placeholder="gluten, lactose, nuts (virgule)"/><span class="fhint">Séparés par des virgules</span></div>
+            <div class="fg"><label class="flbl">Régimes compatibles</label><input type="text" class="finp" id="f-diets" placeholder="vegetarian, vegan, gluten-free"/><span class="fhint">Séparés par des virgules</span></div>
+            <div class="fg"><label class="flbl">Allergènes</label><input type="text" class="finp" id="f-allergens" placeholder="gluten, lactose, nuts"/><span class="fhint">Séparés par des virgules</span></div>
           </div>
-
           <div class="fsep">Source</div>
           <div class="form-grid">
             <div class="fg"><label class="flbl">Nom de la source</label><input type="text" class="finp" id="f-src-name" value="FoodCloud"/></div>
             <div class="fg"><label class="flbl">URL originale</label><input type="text" class="finp" id="f-src-url" placeholder="https://..."/></div>
           </div>
-
           <input type="hidden" id="f-id"/>
           <div style="display:flex;gap:.75rem;margin-top:1.5rem;justify-content:flex-end">
             <button class="btn btn-ghost" onclick="cancelForm()">Annuler</button>
             <button class="btn btn-blue" id="btn-save" onclick="saveRecipe()">
               <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-              Enregistrer sur NutriChef
+              Enregistrer
             </button>
           </div>
         </div>
+      </div>
+
+      <!-- API / CONNEXIONS -->
+      <div class="page" id="page-api">
+        <div class="page-hd">
+          <div><div class="page-title">Connecter une application</div><div class="page-sub">Utilisez votre clé API pour connecter n'importe quel logiciel à FoodCloud</div></div>
+        </div>
+
+        <!-- Clé API -->
+        <div class="api-hero">
+          <div class="api-hero-title">Votre clé API FoodCloud</div>
+          <div class="api-hero-sub">Copiez cette clé et collez-la dans votre application pour accéder à vos recettes.</div>
+          <div class="api-key-box">
+            <span class="api-key-val" id="api-key-display">fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26</span>
+            <button class="api-key-copy" onclick="copyKey()">Copier la clé</button>
+          </div>
+        </div>
+
+        <!-- Comment connecter -->
+        <div class="api-section">
+          <div class="api-section-title">Comment connecter votre application</div>
+          <div class="connect-card">
+            <div class="connect-card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Connexion en 3 étapes
+            </div>
+            <div class="connect-card-sub">Suivez ces étapes pour connecter NutriChef, ChefMalin ou tout autre logiciel à FoodCloud.</div>
+            <div class="step-list">
+              <div class="step-item"><div class="step-num">1</div><span>Copiez votre clé API ci-dessus</span></div>
+              <div class="step-item"><div class="step-num">2</div><span>Dans votre application, ajoutez le header <code style="background:var(--bg);padding:.1rem .4rem;border-radius:4px;font-size:.8rem">X-FoodCloud-Key: votre_clé</code> à chaque requête</span></div>
+              <div class="step-item"><div class="step-num">3</div><span>Appelez l'endpoint <code style="background:var(--bg);padding:.1rem .4rem;border-radius:4px;font-size:.8rem">GET /api/recipes</code> pour récupérer vos recettes</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Endpoints -->
+        <div class="api-section">
+          <div class="api-section-title">Endpoints disponibles</div>
+
+          <!-- GET /api/recipes -->
+          <div class="endpoint-card">
+            <div class="endpoint-head">
+              <span class="method-badge method-get">GET</span>
+              <span class="endpoint-path">https://naregjbyatnoazyyfwmj.supabase.co/rest/v1/recipes</span>
+              <span class="endpoint-desc">Récupérer les recettes</span>
+            </div>
+            <div class="endpoint-body">
+              <div style="font-size:.8rem;font-weight:600;color:var(--t2);margin-bottom:.5rem">Headers requis</div>
+              <div class="code-block">
+                <button class="code-copy" onclick="copyCode(this)">Copier</button>
+apikey: fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26
+Authorization: Bearer fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26</div>
+              <div style="font-size:.8rem;font-weight:600;color:var(--t2);margin:.85rem 0 .5rem">Paramètres optionnels</div>
+              <table class="param-table">
+                <thead><tr><th>Paramètre</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="param-name">status=eq.active</span></td><td><span class="param-opt">optionnel</span></td><td>Filtrer les recettes actives uniquement</td></tr>
+                  <tr><td><span class="param-name">meal_type=eq.lunch</span></td><td><span class="param-opt">optionnel</span></td><td>Filtrer par type de repas</td></tr>
+                  <tr><td><span class="param-name">calories=gte.400&calories=lte.700</span></td><td><span class="param-opt">optionnel</span></td><td>Filtrer par plage calorique</td></tr>
+                  <tr><td><span class="param-name">name=ilike.*poulet*</span></td><td><span class="param-opt">optionnel</span></td><td>Recherche par nom</td></tr>
+                  <tr><td><span class="param-name">limit=20</span></td><td><span class="param-opt">optionnel</span></td><td>Nombre de résultats (défaut: 20)</td></tr>
+                  <tr><td><span class="param-name">order=created_at.desc</span></td><td><span class="param-opt">optionnel</span></td><td>Tri des résultats</td></tr>
+                </tbody>
+              </table>
+              <div style="font-size:.8rem;font-weight:600;color:var(--t2);margin:.85rem 0 .5rem">Exemple de requête</div>
+              <div class="code-block">
+                <button class="code-copy" onclick="copyCode(this)">Copier</button>
+fetch("https://naregjbyatnoazyyfwmj.supabase.co/rest/v1/recipes?status=eq.active&meal_type=eq.lunch&limit=10", {
+  headers: {
+    "apikey": "fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26",
+    "Authorization": "Bearer fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26"
+  }
+})
+.then(r => r.json())
+.then(recipes => {
+  // recipes = tableau de recettes FoodCloud
+  console.log(recipes.length + " recettes trouvées");
+});</div>
+              <div style="font-size:.8rem;font-weight:600;color:var(--t2);margin:.85rem 0 .5rem">Exemple de réponse</div>
+              <div class="code-block">
+                <button class="code-copy" onclick="copyCode(this)">Copier</button>
+[
+  {
+    "id": "uuid-ici",
+    "name": "Poulet rôti aux herbes",
+    "meal_type": "dinner",
+    "cuisine": "Française",
+    "calories": 520,
+    "protein": 42,
+    "carbohydrates": 18,
+    "fat": 28,
+    "fiber": 3,
+    "servings": 2,
+    "prep_time": 15,
+    "cook_time": 45,
+    "ingredients": [
+      {"name": "poulet", "amount": "1", "unit": "kg"},
+      {"name": "herbes de Provence", "amount": "2", "unit": "c.à.s"}
+    ],
+    "diets": ["gluten-free"],
+    "allergens": [],
+    "source_name": "FoodCloud",
+    "source_url": null,
+    "status": "active",
+    "created_at": "2026-10-01T10:00:00Z"
+  }
+]</div>
+            </div>
+          </div>
+
+          <!-- GET /api/recipes/:id -->
+          <div class="endpoint-card">
+            <div class="endpoint-head">
+              <span class="method-badge method-get">GET</span>
+              <span class="endpoint-path">https://naregjbyatnoazyyfwmj.supabase.co/rest/v1/recipes?id=eq.{id}</span>
+              <span class="endpoint-desc">Récupérer une recette par ID</span>
+            </div>
+            <div class="endpoint-body">
+              <div class="code-block">
+                <button class="code-copy" onclick="copyCode(this)">Copier</button>
+fetch("https://naregjbyatnoazyyfwmj.supabase.co/rest/v1/recipes?id=eq.VOTRE_ID", {
+  headers: {
+    "apikey": "fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26",
+    "Authorization": "Bearer fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26"
+  }
+}).then(r => r.json()).then(data => console.log(data[0]));</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Intégration NutriChef -->
+        <div class="api-section">
+          <div class="api-section-title">Intégration NutriChef</div>
+          <div class="connect-card">
+            <div class="connect-card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              NutriChef est déjà connecté à FoodCloud
+            </div>
+            <div class="connect-card-sub">NutriChef utilise la même base Supabase. Toute recette ajoutée ici avec le statut "Active" apparaît automatiquement sur NutriChef.</div>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+              <a href="https://chefmalin.github.io/nutrirecettes/" target="_blank" class="btn btn-green btn-sm">
+                <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Ouvrir NutriChef
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Intégration ChefMalin -->
+        <div class="api-section">
+          <div class="api-section-title">Connecter ChefMalin ou une autre app</div>
+          <div class="connect-card">
+            <div class="connect-card-title">Code à ajouter dans votre application</div>
+            <div class="connect-card-sub">Copiez ce code et ajoutez-le dans votre logiciel pour récupérer les recettes FoodCloud.</div>
+            <div class="code-block">
+              <button class="code-copy" onclick="copyCode(this)">Copier</button>
+// ── FOODCLOUD API ──────────────────────────────────
+var FOODCLOUD_URL = "https://naregjbyatnoazyyfwmj.supabase.co";
+var FOODCLOUD_KEY = "fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26";
+
+function getFoodCloudRecipes(options) {
+  var params = new URLSearchParams();
+  params.set("status", "eq.active");
+  if (options.meal_type) params.set("meal_type", "eq." + options.meal_type);
+  if (options.min_cal) params.set("calories", "gte." + options.min_cal);
+  if (options.max_cal) params.append("calories", "lte." + options.max_cal);
+  if (options.search) params.set("name", "ilike.*" + options.search + "*");
+  params.set("limit", options.limit || 20);
+  params.set("order", "created_at.desc");
+
+  return fetch(FOODCLOUD_URL + "/rest/v1/recipes?" + params, {
+    headers: {
+      "apikey": FOODCLOUD_KEY,
+      "Authorization": "Bearer " + FOODCLOUD_KEY
+    }
+  }).then(function(r) { return r.json(); });
+}
+
+// Exemple d'utilisation :
+getFoodCloudRecipes({ meal_type: "lunch", min_cal: 400, max_cal: 700 })
+  .then(function(recipes) {
+    console.log("Recettes FoodCloud :", recipes);
+  });</div>
+          </div>
+        </div>
+
       </div>
 
     </main>
   </div>
 </div>
 
-<!-- MODAL SUPPRESSION -->
+<!-- MODAL DELETE -->
 <div class="modal-bg" id="modal-del">
   <div class="modal">
     <div class="modal-hd"><span class="modal-title">Confirmer la suppression</span><button class="modal-x" onclick="closeModal()">x</button></div>
-    <div class="modal-bd"><p style="font-size:.88rem;color:var(--t2)">Supprimer <strong id="del-name"></strong> ? Cette recette disparaîtra de NutriChef immédiatement.</p></div>
+    <div class="modal-bd"><p style="font-size:.88rem;color:var(--t2)">Supprimer <strong id="del-name"></strong> ? Cette recette ne sera plus accessible via l'API.</p></div>
     <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal()">Annuler</button><button class="btn btn-red" onclick="confirmDel()">Supprimer</button></div>
   </div>
 </div>
@@ -363,6 +539,7 @@ tr:hover td{background:#fafafa}
 var SB_URL = "https://naregjbyatnoazyyfwmj.supabase.co";
 var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5hcmVnamJ5YXRub2F6eXlmd21qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAxODMyMjAsImV4cCI6MjEwNTc1OTIyMH0.3wdp1l-61dSaFyVKDqKr9sM0SlUZT-y6wmDJ0Io9JhI";
 var PWD_HASH = "33ff9c54ce469adbed4b88f89cd3f5cc27966d24edcd3b42c94f50f493f57900";
+var FC_API_KEY = "fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26";
 var delId = null;
 var ingN = 0;
 
@@ -372,14 +549,8 @@ function api(path, method, body) {
   h["Authorization"] = "Bearer " + SB_KEY;
   h["Content-Type"] = "application/json";
   if (method === "POST" || method === "PATCH") h["Prefer"] = "return=representation";
-  return fetch(SB_URL + path, {
-    method: method || "GET",
-    headers: h,
-    body: body ? JSON.stringify(body) : undefined
-  }).then(function(r) {
-    if (r.status === 204) return [];
-    return r.json();
-  });
+  return fetch(SB_URL + path, {method: method || "GET", headers: h, body: body ? JSON.stringify(body) : undefined})
+    .then(function(r) { if (r.status === 204) return []; return r.json(); });
 }
 
 function doLogin() {
@@ -387,26 +558,20 @@ function doLogin() {
   crypto.subtle.digest("SHA-256", new TextEncoder().encode(pwd)).then(function(buf) {
     var hash = Array.from(new Uint8Array(buf)).map(function(b) { return b.toString(16).padStart(2,"0"); }).join("");
     if (hash === PWD_HASH) {
-      sessionStorage.setItem("fc_auth", "1");
+      sessionStorage.setItem("fc_auth","1");
       document.getElementById("login-wrap").style.display = "none";
       document.getElementById("app").style.display = "block";
       loadDashboard();
     } else {
       document.getElementById("login-err").style.display = "block";
       document.getElementById("login-pwd").value = "";
-      document.getElementById("login-pwd").focus();
     }
   });
 }
 
-document.getElementById("login-pwd").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") doLogin();
-});
+document.getElementById("login-pwd").addEventListener("keydown", function(e) { if (e.key === "Enter") doLogin(); });
 
-function doLogout() {
-  sessionStorage.removeItem("fc_auth");
-  location.reload();
-}
+function doLogout() { sessionStorage.removeItem("fc_auth"); location.reload(); }
 
 if (sessionStorage.getItem("fc_auth") === "1") {
   document.getElementById("login-wrap").style.display = "none";
@@ -428,25 +593,19 @@ function goTo(page) {
 function loadDashboard() {
   api("/rest/v1/recipes?select=id,name,meal_type,calories,status&order=created_at.desc&limit=100").then(function(data) {
     if (!Array.isArray(data)) return;
-    var total = data.length;
-    var active = data.filter(function(r) { return r.status === "active"; }).length;
-    var inactive = data.filter(function(r) { return r.status === "inactive"; }).length;
-    var pending = total - active - inactive;
-    document.getElementById("st-total").textContent = total;
-    document.getElementById("st-active").textContent = active;
-    document.getElementById("st-pending").textContent = pending;
-    document.getElementById("st-inactive").textContent = inactive;
-    document.getElementById("sb-count").textContent = total;
+    document.getElementById("st-total").textContent = data.length;
+    document.getElementById("st-active").textContent = data.filter(function(r) { return r.status === "active"; }).length;
+    document.getElementById("st-inactive").textContent = data.filter(function(r) { return r.status === "inactive"; }).length;
+    document.getElementById("sb-count").textContent = data.length;
     var recent = data.slice(0, 8);
     if (recent.length === 0) {
       document.getElementById("dash-recent").innerHTML = "<div class=\"empty\"><p>Aucune recette. Commencez par en ajouter une.</p></div>";
       return;
     }
-    document.getElementById("dash-recent").innerHTML = "<div style=\"overflow-x:auto\"><table><thead><tr><th>Nom</th><th>Repas</th><th>Calories</th><th>Statut</th><th>Actions</th></tr></thead><tbody>"
+    document.getElementById("dash-recent").innerHTML = "<div style=\"overflow-x:auto\"><table><thead><tr><th>Nom</th><th>Repas</th><th>Calories</th><th>Statut</th><th></th></tr></thead><tbody>"
       + recent.map(function(r) {
           return "<tr><td><strong>" + esc(r.name) + "</strong></td><td>" + mealLbl(r.meal_type) + "</td><td>" + (r.calories ? r.calories + " kcal" : "—") + "</td><td>" + statusBadge(r.status) + "</td><td><button class=\"btn btn-ghost btn-sm\" onclick=\"editR('" + r.id + "')\">Modifier</button></td></tr>";
-        }).join("")
-      + "</tbody></table></div>";
+        }).join("") + "</tbody></table></div>";
   });
 }
 
@@ -502,7 +661,7 @@ function getIngs() {
 function resetForm() {
   document.getElementById("f-id").value = "";
   document.getElementById("form-title").textContent = "Ajouter une recette";
-  document.getElementById("btn-save").textContent = "Enregistrer sur NutriChef";
+  document.getElementById("btn-save").textContent = "Enregistrer";
   ["f-name","f-desc","f-image","f-cuisine","f-cal","f-prot","f-carb","f-fat","f-fiber","f-src-url"].forEach(function(id) { document.getElementById(id).value = ""; });
   document.getElementById("f-meal").value = "lunch";
   document.getElementById("f-status").value = "active";
@@ -553,41 +712,31 @@ function saveRecipe() {
   var name = document.getElementById("f-name").value.trim();
   if (!name) { showAlert("Le nom est obligatoire.", "err"); return; }
   var cal = document.getElementById("f-cal").value;
-  if (!cal) { showAlert("Les calories sont obligatoires pour NutriChef.", "err"); return; }
+  if (!cal) { showAlert("Les calories sont obligatoires.", "err"); return; }
   var eid = document.getElementById("f-id").value;
   var pt = nn("f-prep"), ct = nn("f-cook");
   var body = {
-    name: name,
-    description: document.getElementById("f-desc").value.trim() || null,
+    name: name, description: document.getElementById("f-desc").value.trim() || null,
     image_url: document.getElementById("f-image").value.trim() || null,
-    meal_type: document.getElementById("f-meal").value,
-    status: document.getElementById("f-status").value,
+    meal_type: document.getElementById("f-meal").value, status: document.getElementById("f-status").value,
     cuisine: document.getElementById("f-cuisine").value.trim() || null,
     calories: nn("f-cal"), protein: nn("f-prot"), carbohydrates: nn("f-carb"),
     fat: nn("f-fat"), fiber: nn("f-fiber"),
     servings: parseInt(document.getElementById("f-serv").value) || 1,
-    prep_time: pt, cook_time: ct,
-    ingredients: getIngs(),
+    prep_time: pt, cook_time: ct, ingredients: getIngs(),
     diets: stags("f-diets"), allergens: stags("f-allergens"),
     source_name: document.getElementById("f-src-name").value.trim() || "FoodCloud",
     source_url: document.getElementById("f-src-url").value.trim() || null,
     updated_at: new Date().toISOString()
   };
   document.getElementById("btn-save").disabled = true;
-  var method = eid ? "PATCH" : "POST";
-  var path = eid ? "/rest/v1/recipes?id=eq." + eid : "/rest/v1/recipes";
-  api(path, method, body).then(function(d) {
+  api(eid ? "/rest/v1/recipes?id=eq." + eid : "/rest/v1/recipes", eid ? "PATCH" : "POST", body).then(function(d) {
     document.getElementById("btn-save").disabled = false;
     if (Array.isArray(d) || (d && !d.message)) {
-      showAlert(eid ? "Recette modifiée ! Disponible sur NutriChef." : "Recette ajoutée ! Disponible sur NutriChef.", "ok");
+      showAlert(eid ? "Recette modifiée !" : "Recette ajoutée ! Disponible via l'API.", "ok");
       if (!eid) { resetForm(); initIngs(); }
-    } else {
-      showAlert("Erreur : " + (d.message || "Vérifiez les données."), "err");
-    }
-  }).catch(function() {
-    document.getElementById("btn-save").disabled = false;
-    showAlert("Erreur réseau.", "err");
-  });
+    } else { showAlert("Erreur : " + (d.message || "Vérifiez les données."), "err"); }
+  }).catch(function() { document.getElementById("btn-save").disabled = false; showAlert("Erreur réseau.", "err"); });
 }
 
 function showAlert(msg, t) {
@@ -596,26 +745,27 @@ function showAlert(msg, t) {
 }
 
 function toggleStatus(id, cur) {
-  var ns = cur === "active" ? "inactive" : "active";
-  api("/rest/v1/recipes?id=eq." + id, "PATCH", {status: ns}).then(function() {
-    loadRecipes();
-    showToast(ns === "active" ? "Recette activée sur NutriChef" : "Recette désactivée");
+  api("/rest/v1/recipes?id=eq." + id, "PATCH", {status: cur === "active" ? "inactive" : "active"}).then(function() {
+    loadRecipes(); showToast(cur === "active" ? "Recette désactivée" : "Recette activée");
   });
 }
 
-function askDel(id, name) {
-  delId = id;
-  document.getElementById("del-name").textContent = name;
-  document.getElementById("modal-del").classList.add("open");
-}
+function askDel(id, name) { delId = id; document.getElementById("del-name").textContent = name; document.getElementById("modal-del").classList.add("open"); }
 function confirmDel() {
   if (!delId) return;
-  api("/rest/v1/recipes?id=eq." + delId, "DELETE").then(function() {
-    delId = null; closeModal(); loadRecipes();
-    showToast("Recette supprimée");
-  });
+  api("/rest/v1/recipes?id=eq." + delId, "DELETE").then(function() { delId = null; closeModal(); loadRecipes(); showToast("Recette supprimée"); });
 }
 function closeModal() { document.getElementById("modal-del").classList.remove("open"); delId = null; }
+
+function copyKey() {
+  navigator.clipboard.writeText(FC_API_KEY).then(function() { showToast("Clé API copiée !"); });
+}
+
+function copyCode(btn) {
+  var block = btn.parentElement;
+  var text = block.textContent.replace("Copier","").trim();
+  navigator.clipboard.writeText(text).then(function() { btn.textContent = "Copié !"; setTimeout(function() { btn.textContent = "Copier"; }, 2000); });
+}
 
 function showToast(msg) {
   var t = document.getElementById("toast");
@@ -624,10 +774,7 @@ function showToast(msg) {
 }
 
 function mealLbl(t) { return {breakfast:"Petit-déjeuner",lunch:"Déjeuner",dinner:"Dîner",snack:"Collation"}[t] || t; }
-function statusBadge(s) {
-  if (s === "active") return "<span class=\"badge badge-green\">Active</span>";
-  return "<span class=\"badge badge-red\">Inactive</span>";
-}
+function statusBadge(s) { return s === "active" ? "<span class=\"badge badge-green\">Active</span>" : "<span class=\"badge badge-red\">Inactive</span>"; }
 function nn(id) { var v = document.getElementById(id).value; return v !== "" ? Number(v) : null; }
 function stags(id) { return document.getElementById(id).value.split(",").map(function(t) { return t.trim(); }).filter(Boolean); }
 function esc(s) { if (typeof s !== "string") return s || ""; return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
