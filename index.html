@@ -345,7 +345,7 @@ tr:hover td{background:#fafafa}
           <div class="api-hero-title">Votre clé API FoodCloud</div>
           <div class="api-hero-sub">Copiez cette clé et collez-la dans votre application pour accéder à vos recettes.</div>
           <div class="api-key-box">
-            <span class="api-key-val" id="api-key-display">fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26</span>
+            <span class="api-key-val" id="api-key-display">sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz</span>
             <button class="api-key-copy" onclick="copyKey()">Copier la clé</button>
           </div>
         </div>
@@ -375,15 +375,15 @@ tr:hover td{background:#fafafa}
           <div class="endpoint-card">
             <div class="endpoint-head">
               <span class="method-badge method-get">GET</span>
-              <span class="endpoint-path">https://naregjbyatnoazyyfwmj.supabase.co/rest/v1/recipes</span>
+              <span class="endpoint-path">https://uqbbknlrbyzchmydvmna.supabase.co/rest/v1/recipes</span>
               <span class="endpoint-desc">Récupérer les recettes</span>
             </div>
             <div class="endpoint-body">
               <div style="font-size:.8rem;font-weight:600;color:var(--t2);margin-bottom:.5rem">Headers requis</div>
               <div class="code-block">
                 <button class="code-copy" onclick="copyCode(this)">Copier</button>
-apikey: fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26
-Authorization: Bearer fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26</div>
+apikey: sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz
+Authorization: Bearer sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz</div>
               <div style="font-size:.8rem;font-weight:600;color:var(--t2);margin:.85rem 0 .5rem">Paramètres optionnels</div>
               <table class="param-table">
                 <thead><tr><th>Paramètre</th><th>Type</th><th>Description</th></tr></thead>
@@ -399,10 +399,10 @@ Authorization: Bearer fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26</div>
               <div style="font-size:.8rem;font-weight:600;color:var(--t2);margin:.85rem 0 .5rem">Exemple de requête</div>
               <div class="code-block">
                 <button class="code-copy" onclick="copyCode(this)">Copier</button>
-fetch("https://naregjbyatnoazyyfwmj.supabase.co/rest/v1/recipes?status=eq.active&meal_type=eq.lunch&limit=10", {
+fetch("https://uqbbknlrbyzchmydvmna.supabase.co/rest/v1/recipes?status=eq.active&meal_type=eq.lunch&limit=10", {
   headers: {
-    "apikey": "fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26",
-    "Authorization": "Bearer fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26"
+    "apikey": "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz",
+    "Authorization": "Bearer sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz"
   }
 })
 .then(r => r.json())
@@ -446,16 +446,16 @@ fetch("https://naregjbyatnoazyyfwmj.supabase.co/rest/v1/recipes?status=eq.active
           <div class="endpoint-card">
             <div class="endpoint-head">
               <span class="method-badge method-get">GET</span>
-              <span class="endpoint-path">https://naregjbyatnoazyyfwmj.supabase.co/rest/v1/recipes?id=eq.{id}</span>
+              <span class="endpoint-path">https://uqbbknlrbyzchmydvmna.supabase.co/rest/v1/recipes?id=eq.{id}</span>
               <span class="endpoint-desc">Récupérer une recette par ID</span>
             </div>
             <div class="endpoint-body">
               <div class="code-block">
                 <button class="code-copy" onclick="copyCode(this)">Copier</button>
-fetch("https://naregjbyatnoazyyfwmj.supabase.co/rest/v1/recipes?id=eq.VOTRE_ID", {
+fetch("https://uqbbknlrbyzchmydvmna.supabase.co/rest/v1/recipes?id=eq.VOTRE_ID", {
   headers: {
-    "apikey": "fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26",
-    "Authorization": "Bearer fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26"
+    "apikey": "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz",
+    "Authorization": "Bearer sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz"
   }
 }).then(r => r.json()).then(data => console.log(data[0]));</div>
             </div>
@@ -489,8 +489,8 @@ fetch("https://naregjbyatnoazyyfwmj.supabase.co/rest/v1/recipes?id=eq.VOTRE_ID",
             <div class="code-block">
               <button class="code-copy" onclick="copyCode(this)">Copier</button>
 // ── FOODCLOUD API ──────────────────────────────────
-var FOODCLOUD_URL = "https://naregjbyatnoazyyfwmj.supabase.co";
-var FOODCLOUD_KEY = "fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26";
+var FOODCLOUD_URL = "https://uqbbknlrbyzchmydvmna.supabase.co";
+var FOODCLOUD_KEY = "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz";
 
 function getFoodCloudRecipes(options) {
   var params = new URLSearchParams();
@@ -536,10 +536,10 @@ getFoodCloudRecipes({ meal_type: "lunch", min_cal: 400, max_cal: 700 })
 <div class="toast" id="toast"></div>
 
 <script>
-var SB_URL = "https://naregjbyatnoazyyfwmj.supabase.co";
+var SB_URL = "https://uqbbknlrbyzchmydvmna.supabase.co";
 var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5hcmVnamJ5YXRub2F6eXlmd21qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAxODMyMjAsImV4cCI6MjEwNTc1OTIyMH0.3wdp1l-61dSaFyVKDqKr9sM0SlUZT-y6wmDJ0Io9JhI";
 var PWD_HASH = "33ff9c54ce469adbed4b88f89cd3f5cc27966d24edcd3b42c94f50f493f57900";
-var FC_API_KEY = "fc_09cabf5fe427715c33a1ffb414b3713a53eede7c9bda8a26";
+var FC_API_KEY = "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz";
 var delId = null;
 var ingN = 0;
 
