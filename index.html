@@ -552,6 +552,7 @@ var SB_KEY = "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz";
 var FC_API_KEY = "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz";
 var authToken = sessionStorage.getItem("fc_access_token") || "";
 var OWNER_EMAIL = "mathiaspantano63@gmail.com";
+var recoveryToken = new URLSearchParams(location.hash.replace(/^#/, "")).get("access_token") || "";
 var delId = null;
 var ingN = 0;
 
@@ -611,8 +612,37 @@ function sendPasswordRecovery() {
   }).catch(function(error) { showLoginError(error.message); });
 }
 document.getElementById("login-pwd").addEventListener("keydown", function(e) { if (e.key === "Enter") doLogin(); });
+function preparePasswordRecovery() {
+  document.querySelector(".login-title").textContent = "Choisissez votre mot de passe";
+  document.querySelector(".login-sub").textContent = "Ce mot de passe servira ensuite à ouvrir FoodCloud.";
+  document.getElementById("login-pwd").placeholder = "Nouveau mot de passe (au moins 6 caractères)";
+  var button = document.getElementById("login-btn");
+  button.textContent = "Enregistrer le mot de passe";
+  button.onclick = completePasswordRecovery;
+  document.querySelector('button[onclick="sendPasswordRecovery()"]').style.display = "none";
+}
+function completePasswordRecovery() {
+  var password = document.getElementById("login-pwd").value;
+  if (password.length < 6) { showLoginError("Choisissez un mot de passe d’au moins 6 caractères."); return; }
+  var button = document.getElementById("login-btn");
+  button.disabled = true; button.textContent = "Enregistrement…";
+  fetch(SB_URL + "/auth/v1/user", {
+    method: "PUT",
+    headers: {"apikey": SB_KEY, "Authorization": "Bearer " + recoveryToken, "Content-Type": "application/json"},
+    body: JSON.stringify({password: password})
+  }).then(function(r) { return r.json().then(function(data) { if (!r.ok) throw new Error(data.message || data.error_description || "Impossible d’enregistrer le mot de passe."); return data; }); })
+    .then(function() {
+      authToken = recoveryToken;
+      sessionStorage.setItem("fc_access_token", authToken);
+      history.replaceState(null, "", location.pathname);
+      showApp();
+    }).catch(function(error) {
+      showLoginError(error.message || "Impossible d’enregistrer le mot de passe.");
+    }).finally(function() { button.disabled = false; button.textContent = "Enregistrer le mot de passe"; });
+}
 function doLogout() { sessionStorage.removeItem("fc_access_token"); authToken = ""; location.reload(); }
-if (authToken) showApp();
+if (recoveryToken) preparePasswordRecovery();
+else if (authToken) showApp();
 
 function goTo(page) {
   document.querySelectorAll(".page").forEach(function(p) { p.classList.remove("active"); });
