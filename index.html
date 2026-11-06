@@ -318,6 +318,16 @@ tr:hover td{background:#fafafa}
             <div class="fg"><label class="flbl">Régimes compatibles</label><input type="text" class="finp" id="f-diets" placeholder="vegetarian, vegan, gluten-free"/><span class="fhint">Séparés par des virgules</span></div>
             <div class="fg"><label class="flbl">Allergènes</label><input type="text" class="finp" id="f-allergens" placeholder="gluten, lactose, nuts"/><span class="fhint">Séparés par des virgules</span></div>
           </div>
+          <div class="fsep">Destination NutriChef <span class="req">*</span></div>
+          <div class="fg full">
+            <label class="flbl">Où cette recette doit-elle apparaître dans NutriChef ?</label>
+            <div id="f-route" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.65rem">
+              <label style="border:2px solid #bfdbfe;border-radius:var(--r);padding:.8rem;cursor:pointer;background:var(--blue-l)"><input type="radio" name="fc-route" value="personnalisee" checked/> <strong>Recette personnalisée</strong><span style="display:block;font-size:.74rem;color:var(--t2);margin-top:.35rem">Proposée selon les calories et l’objectif.</span></label>
+              <label style="border:2px solid #fde68a;border-radius:var(--r);padding:.8rem;cursor:pointer;background:var(--yellow-l)"><input type="radio" name="fc-route" value="panier_bleu"/> <strong>Panier bleu</strong><span style="display:block;font-size:.74rem;color:var(--t2);margin-top:.35rem">Recette méditerranéenne uniquement.</span></label>
+              <label style="border:2px solid #c7d2fe;border-radius:var(--r);padding:.8rem;cursor:pointer;background:#eef2ff"><input type="radio" name="fc-route" value="chef"/> <strong>Recette du chef</strong><span style="display:block;font-size:.74rem;color:var(--t2);margin-top:.35rem">Visible dans la sélection du chef.</span></label>
+            </div>
+            <span class="fhint">Une recette apparaît dans une seule rubrique : choisissez celle qui convient avant d’enregistrer.</span>
+          </div>
           <div class="fsep">Source</div>
           <div class="form-grid">
             <div class="fg"><label class="flbl">Nom de la source</label><input type="text" class="finp" id="f-src-name" value="FoodCloud"/></div>
@@ -472,7 +482,7 @@ fetch("https://uqbbknlrbyzchmydvmna.supabase.co/rest/v1/recipes?id=eq.VOTRE_ID",
             </div>
             <div class="connect-card-sub">NutriChef utilise la même base Supabase. Toute recette ajoutée ici avec le statut "Active" apparaît automatiquement sur NutriChef.</div>
             <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-              <a href="https://chefmalin.github.io/nutrirecettes/" target="_blank" class="btn btn-green btn-sm">
+              <a href="https://chefmalin.github.io/chefmalinap/nutrichef-app-20261023-e.html" target="_blank" class="btn btn-green btn-sm">
                 <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 Ouvrir NutriChef
               </a>
@@ -670,6 +680,7 @@ function resetForm() {
   document.getElementById("f-cook").value = "";
   document.getElementById("f-diets").value = "";
   document.getElementById("f-allergens").value = "";
+  document.querySelector('input[name="fc-route"][value="personnalisee"]').checked = true;
   document.getElementById("f-src-name").value = "FoodCloud";
   document.getElementById("form-alert").innerHTML = "";
 }
@@ -697,7 +708,12 @@ function editR(id) {
     document.getElementById("f-serv").value = r.servings || 1;
     document.getElementById("f-prep").value = r.prep_time || "";
     document.getElementById("f-cook").value = r.cook_time || "";
-    document.getElementById("f-diets").value = (r.diets || []).join(", ");
+    var savedDiets = (r.diets || []);
+    document.getElementById("f-diets").value = savedDiets.filter(function(v) { return String(v).indexOf("__nutrichef:") !== 0; }).join(", ");
+    var savedRoute = savedDiets.map(String).filter(function(v) { return v.indexOf("__nutrichef:") === 0; })[0];
+    var routeValue = savedRoute ? savedRoute.replace("__nutrichef:", "") : "personnalisee";
+    var routeInput = document.querySelector('input[name="fc-route"][value="' + routeValue + '"]');
+    (routeInput || document.querySelector('input[name="fc-route"][value="personnalisee"]')).checked = true;
     document.getElementById("f-allergens").value = (r.allergens || []).join(", ");
     document.getElementById("f-src-name").value = r.source_name || "FoodCloud";
     document.getElementById("f-src-url").value = r.source_url || "";
@@ -724,7 +740,7 @@ function saveRecipe() {
     fat: nn("f-fat"), fiber: nn("f-fiber"),
     servings: parseInt(document.getElementById("f-serv").value) || 1,
     prep_time: pt, cook_time: ct, ingredients: getIngs(),
-    diets: stags("f-diets"), allergens: stags("f-allergens"),
+    diets: dietsWithNutriChefRoute(stags("f-diets"), selectedNutriChefRoute()), allergens: stags("f-allergens"),
     source_name: document.getElementById("f-src-name").value.trim() || "FoodCloud",
     source_url: document.getElementById("f-src-url").value.trim() || null,
     updated_at: new Date().toISOString()
@@ -777,6 +793,8 @@ function mealLbl(t) { return {breakfast:"Petit-déjeuner",lunch:"Déjeuner",dinn
 function statusBadge(s) { return s === "active" ? "<span class=\"badge badge-green\">Active</span>" : "<span class=\"badge badge-red\">Inactive</span>"; }
 function nn(id) { var v = document.getElementById(id).value; return v !== "" ? Number(v) : null; }
 function stags(id) { return document.getElementById(id).value.split(",").map(function(t) { return t.trim(); }).filter(Boolean); }
+function selectedNutriChefRoute() { var selected = document.querySelector('input[name="fc-route"]:checked'); return selected ? selected.value : "personnalisee"; }
+function dietsWithNutriChefRoute(diets, route) { return diets.filter(function(value) { return String(value).indexOf("__nutrichef:") !== 0; }).concat(["__nutrichef:" + route]); }
 function esc(s) { if (typeof s !== "string") return s || ""; return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
 if (sessionStorage.getItem("fc_auth") === "1") loadDashboard();
