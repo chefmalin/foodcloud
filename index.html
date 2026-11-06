@@ -179,10 +179,6 @@ tr:hover td{background:#fafafa}
     <div class="login-sub">Espace de gestion des recettes</div>
     <div class="login-err" id="login-err" role="alert"></div>
     <div class="login-field">
-      <label class="login-label">Adresse e-mail</label>
-      <input type="email" class="login-input" id="login-email" autocomplete="email" placeholder="votre@email.fr"/>
-    </div>
-    <div class="login-field">
       <label class="login-label">Mot de passe</label>
       <input type="password" class="login-input" id="login-pwd" autocomplete="current-password" placeholder="Votre mot de passe"/>
     </div>
@@ -555,6 +551,7 @@ var SB_URL = "https://uqbbknlrbyzchmydvmna.supabase.co";
 var SB_KEY = "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz";
 var FC_API_KEY = "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz";
 var authToken = sessionStorage.getItem("fc_access_token") || "";
+var OWNER_EMAIL = "mathiaspantano63@gmail.com";
 var delId = null;
 var ingN = 0;
 
@@ -581,9 +578,9 @@ function api(path, method, body) {
     });
 }
 function doLogin() {
-  var email = (document.getElementById("login-email").value || "").trim();
+  var email = OWNER_EMAIL;
   var password = document.getElementById("login-pwd").value;
-  if (!email || !password) { showLoginError("Renseignez votre e-mail et votre mot de passe."); return; }
+  if (!password) { showLoginError("Renseignez votre mot de passe."); return; }
   var button = document.getElementById("login-btn");
   button.disabled = true; button.textContent = "Connexion…";
   fetch(SB_URL + "/auth/v1/token?grant_type=password", {
@@ -601,8 +598,7 @@ function doLogin() {
     }).finally(function() { button.disabled = false; button.textContent = "Se connecter"; });
 }
 function sendPasswordRecovery() {
-  var email = (document.getElementById("login-email").value || "").trim();
-  if (!email) { showLoginError("Saisissez votre adresse e-mail, puis cliquez de nouveau."); return; }
+  var email = OWNER_EMAIL;
   fetch(SB_URL + "/auth/v1/recover", {
     method: "POST",
     headers: {"apikey": SB_KEY, "Content-Type": "application/json"},
