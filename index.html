@@ -177,12 +177,17 @@ tr:hover td{background:#fafafa}
     </div>
     <div class="login-title">Accès privé</div>
     <div class="login-sub">Espace de gestion des recettes</div>
-    <div class="login-err" id="login-err">Mot de passe incorrect.</div>
+    <div class="login-err" id="login-err" role="alert"></div>
+    <div class="login-field">
+      <label class="login-label">Adresse e-mail</label>
+      <input type="email" class="login-input" id="login-email" autocomplete="email" placeholder="votre@email.fr"/>
+    </div>
     <div class="login-field">
       <label class="login-label">Mot de passe</label>
-      <input type="password" class="login-input" id="login-pwd" placeholder="Entrez votre mot de passe"/>
+      <input type="password" class="login-input" id="login-pwd" autocomplete="current-password" placeholder="Votre mot de passe"/>
     </div>
-    <button class="login-btn" onclick="doLogin()">Se connecter</button>
+    <button class="login-btn" id="login-btn" onclick="doLogin()">Se connecter</button>
+    <button type="button" onclick="sendPasswordRecovery()" style="display:block;margin:1rem auto 0;border:0;background:none;color:var(--blue);cursor:pointer;font:inherit;font-size:.82rem">Mot de passe oublié ?</button>
   </div>
 </div>
 
@@ -548,45 +553,70 @@ getFoodCloudRecipes({ meal_type: "lunch", min_cal: 400, max_cal: 700 })
 <script>
 var SB_URL = "https://uqbbknlrbyzchmydvmna.supabase.co";
 var SB_KEY = "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz";
-var PWD_HASH = "33ff9c54ce469adbed4b88f89cd3f5cc27966d24edcd3b42c94f50f493f57900";
 var FC_API_KEY = "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz";
+var authToken = sessionStorage.getItem("fc_access_token") || "";
 var delId = null;
 var ingN = 0;
 
-function api(path, method, body) {
-  var h = {};
-  h["apikey"] = SB_KEY;
-  h["Authorization"] = "Bearer " + SB_KEY;
-  h["Content-Type"] = "application/json";
-  if (method === "POST" || method === "PATCH") h["Prefer"] = "return=representation";
-  return fetch(SB_URL + path, {method: method || "GET", headers: h, body: body ? JSON.stringify(body) : undefined})
-    .then(function(r) { if (r.status === 204) return []; return r.json(); });
+function showLoginError(message) {
+  var error = document.getElementById("login-err");
+  error.textContent = message;
+  error.style.display = "block";
 }
-
-function doLogin() {
-  var pwd = document.getElementById("login-pwd").value;
-  crypto.subtle.digest("SHA-256", new TextEncoder().encode(pwd)).then(function(buf) {
-    var hash = Array.from(new Uint8Array(buf)).map(function(b) { return b.toString(16).padStart(2,"0"); }).join("");
-    if (hash === PWD_HASH) {
-      sessionStorage.setItem("fc_auth","1");
-      document.getElementById("login-wrap").style.display = "none";
-      document.getElementById("app").style.display = "block";
-      loadDashboard();
-    } else {
-      document.getElementById("login-err").style.display = "block";
-      document.getElementById("login-pwd").value = "";
-    }
-  });
-}
-
-document.getElementById("login-pwd").addEventListener("keydown", function(e) { if (e.key === "Enter") doLogin(); });
-
-function doLogout() { sessionStorage.removeItem("fc_auth"); location.reload(); }
-
-if (sessionStorage.getItem("fc_auth") === "1") {
+function showApp() {
   document.getElementById("login-wrap").style.display = "none";
   document.getElementById("app").style.display = "block";
+  loadDashboard();
 }
+function api(path, method, body) {
+  var h = {"apikey": SB_KEY, "Authorization": "Bearer " + (authToken || SB_KEY), "Content-Type": "application/json"};
+  if (method === "POST" || method === "PATCH") h["Prefer"] = "return=representation";
+  return fetch(SB_URL + path, {method: method || "GET", headers: h, body: body ? JSON.stringify(body) : undefined})
+    .then(function(r) {
+      return r.text().then(function(text) {
+        var data = text ? JSON.parse(text) : [];
+        if (!r.ok) throw new Error(data.message || data.error_description || "Erreur de connexion (" + r.status + ")");
+        return data;
+      });
+    });
+}
+function doLogin() {
+  var email = (document.getElementById("login-email").value || "").trim();
+  var password = document.getElementById("login-pwd").value;
+  if (!email || !password) { showLoginError("Renseignez votre e-mail et votre mot de passe."); return; }
+  var button = document.getElementById("login-btn");
+  button.disabled = true; button.textContent = "Connexion…";
+  fetch(SB_URL + "/auth/v1/token?grant_type=password", {
+    method: "POST",
+    headers: {"apikey": SB_KEY, "Content-Type": "application/json"},
+    body: JSON.stringify({email: email, password: password})
+  }).then(function(r) { return r.json().then(function(data) { if (!r.ok) throw new Error(data.error_description || "Connexion impossible."); return data; }); })
+    .then(function(data) {
+      authToken = data.access_token;
+      sessionStorage.setItem("fc_access_token", authToken);
+      showApp();
+    }).catch(function(error) {
+      showLoginError(error.message || "Connexion impossible.");
+      document.getElementById("login-pwd").value = "";
+    }).finally(function() { button.disabled = false; button.textContent = "Se connecter"; });
+}
+function sendPasswordRecovery() {
+  var email = (document.getElementById("login-email").value || "").trim();
+  if (!email) { showLoginError("Saisissez votre adresse e-mail, puis cliquez de nouveau."); return; }
+  fetch(SB_URL + "/auth/v1/recover", {
+    method: "POST",
+    headers: {"apikey": SB_KEY, "Content-Type": "application/json"},
+    body: JSON.stringify({email: email, redirect_to: "https://chefmalin.github.io/foodcloud/"})
+  }).then(function(r) {
+    if (!r.ok) throw new Error("L’e-mail n’a pas pu être envoyé.");
+    showLoginError("Un e-mail de réinitialisation vient d’être envoyé. Vérifiez aussi les spams.");
+    document.getElementById("login-err").style.background = "var(--green-l)";
+    document.getElementById("login-err").style.color = "var(--green)";
+  }).catch(function(error) { showLoginError(error.message); });
+}
+document.getElementById("login-pwd").addEventListener("keydown", function(e) { if (e.key === "Enter") doLogin(); });
+function doLogout() { sessionStorage.removeItem("fc_access_token"); authToken = ""; location.reload(); }
+if (authToken) showApp();
 
 function goTo(page) {
   document.querySelectorAll(".page").forEach(function(p) { p.classList.remove("active"); });
