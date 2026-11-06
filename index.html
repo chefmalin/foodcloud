@@ -183,7 +183,6 @@ tr:hover td{background:#fafafa}
       <input type="password" class="login-input" id="login-pwd" autocomplete="current-password" placeholder="Votre mot de passe"/>
     </div>
     <button class="login-btn" id="login-btn" onclick="doLogin()">Se connecter</button>
-    <button type="button" onclick="sendPasswordRecovery()" style="display:block;margin:1rem auto 0;border:0;background:none;color:var(--blue);cursor:pointer;font:inherit;font-size:.82rem">Mot de passe oublié ?</button>
   </div>
 </div>
 
@@ -549,17 +548,15 @@ getFoodCloudRecipes({ meal_type: "lunch", min_cal: 400, max_cal: 700 })
 <script>
 var SB_URL = "https://uqbbknlrbyzchmydvmna.supabase.co";
 var SB_KEY = "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz";
-var FC_API_KEY = "sb_publishable_njFYoHAuHKrIMiY49Qx1UA_D1yKNejz";
-var authToken = sessionStorage.getItem("fc_access_token") || "";
-var OWNER_EMAIL = "mathiaspantano63@gmail.com";
-var recoveryToken = new URLSearchParams(location.hash.replace(/^#/, "")).get("access_token") || "";
+var FC_API_KEY = SB_KEY;
+var PWD_HASH = "33ff9c54ce469adbed4b88f89cd3f5cc27966d24edcd3b42c94f50f493f57900";
+var fcSecret = sessionStorage.getItem("fc_secret") || "";
 var delId = null;
 var ingN = 0;
 
 function showLoginError(message) {
   var error = document.getElementById("login-err");
-  error.textContent = message;
-  error.style.display = "block";
+  error.textContent = message; error.style.display = "block";
 }
 function showApp() {
   document.getElementById("login-wrap").style.display = "none";
@@ -567,82 +564,31 @@ function showApp() {
   loadDashboard();
 }
 function api(path, method, body) {
-  var h = {"apikey": SB_KEY, "Authorization": "Bearer " + (authToken || SB_KEY), "Content-Type": "application/json"};
-  if (method === "POST" || method === "PATCH") h["Prefer"] = "return=representation";
-  return fetch(SB_URL + path, {method: method || "GET", headers: h, body: body ? JSON.stringify(body) : undefined})
-    .then(function(r) {
-      return r.text().then(function(text) {
-        var data = text ? JSON.parse(text) : [];
-        if (!r.ok) throw new Error(data.message || data.error_description || "Erreur de connexion (" + r.status + ")");
-        return data;
-      });
-    });
+  return fetch(SB_URL + path, {method: method || "GET", headers: {"apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY, "Content-Type": "application/json"}, body: body ? JSON.stringify(body) : undefined})
+    .then(function(r) { return r.text().then(function(text) { var data = text ? JSON.parse(text) : []; if (!r.ok) throw new Error(data.message || "Erreur de connexion (" + r.status + ")"); return data; }); });
+}
+function managedSave(id, recipe) {
+  return fetch(SB_URL + "/rest/v1/rpc/fc_save_recipe", {method:"POST",headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json"},body:JSON.stringify({p_secret:fcSecret,p_id:id||null,p_recipe:recipe})})
+    .then(function(r){return r.text().then(function(text){var data=text?JSON.parse(text):null;if(!r.ok)throw new Error(data.message||data.error||"Impossible d’enregistrer la recette.");return data;});});
+}
+function managedDelete(id) {
+  return fetch(SB_URL + "/rest/v1/rpc/fc_delete_recipe", {method:"POST",headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json"},body:JSON.stringify({p_secret:fcSecret,p_id:id})})
+    .then(function(r){return r.text().then(function(text){var data=text?JSON.parse(text):null;if(!r.ok)throw new Error(data.message||data.error||"Impossible de supprimer la recette.");return data;});});
 }
 function doLogin() {
-  var email = OWNER_EMAIL;
   var password = document.getElementById("login-pwd").value;
   if (!password) { showLoginError("Renseignez votre mot de passe."); return; }
-  var button = document.getElementById("login-btn");
-  button.disabled = true; button.textContent = "Connexion…";
-  fetch(SB_URL + "/auth/v1/token?grant_type=password", {
-    method: "POST",
-    headers: {"apikey": SB_KEY, "Content-Type": "application/json"},
-    body: JSON.stringify({email: email, password: password})
-  }).then(function(r) { return r.json().then(function(data) { if (!r.ok) throw new Error(data.error_description || "Connexion impossible."); return data; }); })
-    .then(function(data) {
-      authToken = data.access_token;
-      sessionStorage.setItem("fc_access_token", authToken);
-      showApp();
-    }).catch(function(error) {
-      showLoginError(error.message || "Connexion impossible.");
-      document.getElementById("login-pwd").value = "";
-    }).finally(function() { button.disabled = false; button.textContent = "Se connecter"; });
+  var button = document.getElementById("login-btn"); button.disabled=true; button.textContent="Connexion…";
+  crypto.subtle.digest("SHA-256", new TextEncoder().encode(password)).then(function(buffer) {
+    var hash=Array.from(new Uint8Array(buffer)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
+    if (hash !== PWD_HASH) throw new Error("Mot de passe incorrect.");
+    fcSecret=password; sessionStorage.setItem("fc_secret",password); showApp();
+  }).catch(function(error){showLoginError(error.message||"Connexion impossible.");document.getElementById("login-pwd").value="";})
+    .finally(function(){button.disabled=false;button.textContent="Se connecter";});
 }
-function sendPasswordRecovery() {
-  var email = OWNER_EMAIL;
-  fetch(SB_URL + "/auth/v1/recover", {
-    method: "POST",
-    headers: {"apikey": SB_KEY, "Content-Type": "application/json"},
-    body: JSON.stringify({email: email, redirect_to: "https://chefmalin.github.io/foodcloud/"})
-  }).then(function(r) {
-    if (!r.ok) throw new Error("L’e-mail n’a pas pu être envoyé.");
-    showLoginError("Un e-mail de réinitialisation vient d’être envoyé. Vérifiez aussi les spams.");
-    document.getElementById("login-err").style.background = "var(--green-l)";
-    document.getElementById("login-err").style.color = "var(--green)";
-  }).catch(function(error) { showLoginError(error.message); });
-}
-document.getElementById("login-pwd").addEventListener("keydown", function(e) { if (e.key === "Enter") doLogin(); });
-function preparePasswordRecovery() {
-  document.querySelector(".login-title").textContent = "Choisissez votre mot de passe";
-  document.querySelector(".login-sub").textContent = "Ce mot de passe servira ensuite à ouvrir FoodCloud.";
-  document.getElementById("login-pwd").placeholder = "Nouveau mot de passe (au moins 6 caractères)";
-  var button = document.getElementById("login-btn");
-  button.textContent = "Enregistrer le mot de passe";
-  button.onclick = completePasswordRecovery;
-  document.querySelector('button[onclick="sendPasswordRecovery()"]').style.display = "none";
-}
-function completePasswordRecovery() {
-  var password = document.getElementById("login-pwd").value;
-  if (password.length < 6) { showLoginError("Choisissez un mot de passe d’au moins 6 caractères."); return; }
-  var button = document.getElementById("login-btn");
-  button.disabled = true; button.textContent = "Enregistrement…";
-  fetch(SB_URL + "/auth/v1/user", {
-    method: "PUT",
-    headers: {"apikey": SB_KEY, "Authorization": "Bearer " + recoveryToken, "Content-Type": "application/json"},
-    body: JSON.stringify({password: password})
-  }).then(function(r) { return r.json().then(function(data) { if (!r.ok) throw new Error(data.message || data.error_description || "Impossible d’enregistrer le mot de passe."); return data; }); })
-    .then(function() {
-      authToken = recoveryToken;
-      sessionStorage.setItem("fc_access_token", authToken);
-      history.replaceState(null, "", location.pathname);
-      showApp();
-    }).catch(function(error) {
-      showLoginError(error.message || "Impossible d’enregistrer le mot de passe.");
-    }).finally(function() { button.disabled = false; button.textContent = "Enregistrer le mot de passe"; });
-}
-function doLogout() { sessionStorage.removeItem("fc_access_token"); authToken = ""; location.reload(); }
-if (recoveryToken) preparePasswordRecovery();
-else if (authToken) showApp();
+document.getElementById("login-pwd").addEventListener("keydown",function(e){if(e.key==="Enter")doLogin();});
+function doLogout(){sessionStorage.removeItem("fc_secret");fcSecret="";location.reload();}
+if (fcSecret) showApp();
 
 function goTo(page) {
   document.querySelectorAll(".page").forEach(function(p) { p.classList.remove("active"); });
@@ -802,7 +748,7 @@ function saveRecipe() {
     updated_at: new Date().toISOString()
   };
   document.getElementById("btn-save").disabled = true;
-  api(eid ? "/rest/v1/recipes?id=eq." + eid : "/rest/v1/recipes", eid ? "PATCH" : "POST", body).then(function(d) {
+  managedSave(eid || null, body).then(function(d) {
     document.getElementById("btn-save").disabled = false;
     if (Array.isArray(d) || (d && !d.message)) {
       showAlert(eid ? "Recette modifiée !" : "Recette ajoutée ! Disponible via l'API.", "ok");
@@ -817,7 +763,7 @@ function showAlert(msg, t) {
 }
 
 function toggleStatus(id, cur) {
-  api("/rest/v1/recipes?id=eq." + id, "PATCH", {status: cur === "active" ? "inactive" : "active"}).then(function() {
+  managedSave(id, {status: cur === "active" ? "inactive" : "active"}).then(function() {
     loadRecipes(); showToast(cur === "active" ? "Recette désactivée" : "Recette activée");
   });
 }
@@ -825,7 +771,7 @@ function toggleStatus(id, cur) {
 function askDel(id, name) { delId = id; document.getElementById("del-name").textContent = name; document.getElementById("modal-del").classList.add("open"); }
 function confirmDel() {
   if (!delId) return;
-  api("/rest/v1/recipes?id=eq." + delId, "DELETE").then(function() { delId = null; closeModal(); loadRecipes(); showToast("Recette supprimée"); });
+  managedDelete(delId).then(function() { delId = null; closeModal(); loadRecipes(); showToast("Recette supprimée"); });
 }
 function closeModal() { document.getElementById("modal-del").classList.remove("open"); delId = null; }
 
@@ -853,7 +799,6 @@ function selectedNutriChefRoute() { var selected = document.querySelector('input
 function dietsWithNutriChefRoute(diets, route) { return diets.filter(function(value) { return String(value).indexOf("__nutrichef:") !== 0; }).concat(["__nutrichef:" + route]); }
 function esc(s) { if (typeof s !== "string") return s || ""; return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
-if (sessionStorage.getItem("fc_auth") === "1") loadDashboard();
 </script>
 </body>
 </html>
